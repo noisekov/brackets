@@ -1,24 +1,22 @@
 module.exports = function check(str, bracketsConfig) {
-    // your solution
-    const stack = [];
-    let count = 0;
-    const strArr = str.split('');
-    
-    for (let i = 0; i < strArr.length;i++) {
-      for (let j = 0; j < bracketsConfig.length;j++) {
-          if(strArr[i] === bracketsConfig[j][0]) {
-            stack.push(strArr[i]);
-            count++;
-          } else if (strArr[i] === bracketsConfig[j][1]) {
-            if(!stack.pop()) {
-              break;
-              return false;
-            }
-            count--;
+  const stack = [];
+  const strArr = str.split('');
+  for (let i = 0; i < strArr.length;i++) {
+    for (let j = 0; j < bracketsConfig.length;j++) {
+      if(bracketsConfig[j][0] === bracketsConfig[j][1] && str.length % 2 ===0) {
+        break;
+      } else {
+        if(strArr[i] === bracketsConfig[j][0]) {
+          stack.push(strArr[i]);
+        } else if (strArr[i] === bracketsConfig[j][1]) {
+          if(!stack.pop()) {
+            break
           } else {
-            count--;
+            stack.pop();
           }
+        } 
       }
     }
-    return stack.length === 0
+  }
+  return stack.length === 0;
 }

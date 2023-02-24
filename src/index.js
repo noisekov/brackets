@@ -18,13 +18,12 @@ module.exports = function check(str, bracketsConfig) {
 
   const stack = [];
   const strArr = str.split('');
-
   for (let i = 0; i < strArr.length; i++) {
 
         let currentStr = strArr[i];
         let topElement = stack.at(-1);
     
-    if (currentStr === theSame[0]) {
+    if (theSame.includes(currentStr)) {
       if (stack.length === 0) {
         stack.push(currentStr)   
       } 
@@ -33,24 +32,23 @@ module.exports = function check(str, bracketsConfig) {
         stack.pop()
       }
     } else {
-          if (openbrackets.includes(currentStr)) {
-      stack.push(currentStr)
-    } else {
-
-      if (stack.length === 0) {
-        return false
-      }
       
-      if(bracketsObj[currentStr] === topElement) {
-        stack.pop()
+      if (openbrackets.includes(currentStr)) {
+        stack.push(currentStr)
       } else {
-        return false
-      }
+        if (stack.length === 0) {
+          return false
+        }
+        if(bracketsObj[currentStr] === topElement) {
+          
+          stack.pop()
+        } else {
+          return false
+        }
 
+      }
+      // console.log(stack)
     }
-    }
-   
   }
-  console.log(stack)
   return stack.length === 0;
 }
